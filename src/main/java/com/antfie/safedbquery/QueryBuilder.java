@@ -25,7 +25,7 @@ public class QueryBuilder {
         return this;
     }
 
-    public QueryBuilder AppendQuery(QueryBuilder queryBuilder) {
+    public QueryBuilder AppendQueryBuilder(QueryBuilder queryBuilder) {
         query.merge(queryBuilder.query);
         parameters.addAll(queryBuilder.parameters);
         return this;
