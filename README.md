@@ -52,7 +52,7 @@ Browse to <http://localhost:8080/?firstName=ada&lastName=lovelace>.
 
 ## Dependencies For Query Code
 
-The org.springframework.util.StringUtils class is used as a sanity check to ensure there are the correct number of parameters for a query. If this dependency is not wanted, the check can be removed.
+The `org.springframework.util.StringUtils` class is used as a sanity check to ensure there are the correct number of parameters for a query. If this dependency is not wanted, the check can be removed.
 
 ## Dependencies For Femo
 
