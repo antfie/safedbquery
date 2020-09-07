@@ -6,7 +6,7 @@ It is a good idea to consider using the DAO pattern, using models for the tables
 
 ## Demonstration
 
-Using the two supplied classes [QueryBuilder.java](/src/main/java/com/antfie/safedbquery/QueryBuilder.java) and [QueryParameter.java](/src/main/java/com/antfie/safedbquery/QueryParameter.java) it is easy to build complex DB queries as shown below. You can use these two simple classes in your own projects.
+Using these two simple classes [QueryBuilder.java](/src/main/java/com/antfie/safedbquery/QueryBuilder.java) and [QueryParameter.java](/src/main/java/com/antfie/safedbquery/QueryParameter.java) it is easy to build complex DB queries as shown below. You can use these classes in your own projects.
 
 ```java
 // Build the query
