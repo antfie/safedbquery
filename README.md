@@ -10,10 +10,10 @@ Using these two simple classes [QueryBuilder.java](/src/main/java/com/antfie/saf
 
 ```java
 // Build the query
-QueryBuilder query = new QueryBuilder("SELECT firstName FROM user");
+QueryBuilder query = new QueryBuilder("SELECT firstName FROM user WHERE");
 
 if (firstName != null) {
-    query.AppendSql("WHERE (firstName =");
+    query.AppendSql("firstName =");
     query.AppendParameter(firstName);
 
     query.AppendSql("OR firstName IN");
@@ -21,14 +21,11 @@ if (firstName != null) {
 
     query.AppendSql("OR firstName LIKE");
     query.AppendParameter("%" + firstName + "%");
-    query.AppendSql(")");
 }
 
 if (lastName != null) {
     if (firstName != null) {
         query.AppendSql("AND");
-    } else {
-        query.AppendSql("WHERE");
     }
 
     query.AppendSql("lastName =").AppendParameter(lastName);
