@@ -42,10 +42,9 @@ ResultSet results = query.Prepare(connection).executeQuery();
 
 ## Running
 
-Build and run using Maven with:
-
 ```
-mvn spring-boot:run
+docker pull maven
+docker run --rm -it -v "$(pwd):/app" -w /app -p 127.0.0.1:8080:8080 maven mvn spring-boot:run
 ```
 
 Browse to <http://localhost:8080/?firstName=ada&lastName=lovelace>.
