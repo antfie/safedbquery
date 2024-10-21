@@ -42,12 +42,14 @@ ResultSet results = query.Prepare(connection).executeQuery();
 
 ## Running
 
-```
+It's good to use Docker to run this, though not required:
+
+```bash
 docker pull maven
 docker run --rm -it -v "$(pwd):/app" -w /app -p 127.0.0.1:8080:8080 maven mvn spring-boot:run
 ```
 
-Browse to:
+Then browse to:
 
 - <http://localhost:8080/?firstName=ada&lastName=lovelace>.
 - <http://localhost:8080/filter/lastName=lovelace>.

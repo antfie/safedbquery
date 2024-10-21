@@ -43,6 +43,7 @@ public class FilterController {
 
             QueryBuilder query = new QueryBuilder("SELECT firstName FROM user WHERE");
             parseFilter(query, filter);
+            query.AppendSql("ORDER BY id DESC");
 
             ResultSet results = query.Prepare(connection).executeQuery();
 

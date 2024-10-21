@@ -24,7 +24,10 @@ public class Controller {
             connection = dataSource.getConnection();
             TestData.populateDB(connection);
 
-            QueryBuilder query = createQuery(firstName, lastName);
+            QueryBuilder query = new QueryBuilder("SELECT firstName FROM user WHERE");
+            populateQuery(query, firstName, lastName);
+            query.AppendSql("ORDER BY id DESC");
+
             ResultSet results = query.Prepare(connection).executeQuery();
             
             return Utils.renderResults(results);
@@ -43,11 +46,9 @@ public class Controller {
         return "Error";
     }
 
-    private QueryBuilder createQuery(String firstName, String lastName) throws SQLException {
-        QueryBuilder query = new QueryBuilder("SELECT firstName FROM user");
-
+    private static void populateQuery(QueryBuilder query, String firstName, String lastName) {
         if (firstName != null) {
-            query.AppendSql("WHERE (firstName =");
+            query.AppendSql("firstName =");
             query.AppendParameter(firstName);
 
             query.AppendSql("OR firstName IN");
@@ -55,20 +56,14 @@ public class Controller {
 
             query.AppendSql("OR firstName LIKE");
             query.AppendParameter("%" + firstName + "%");
-            query.AppendSql(")");
         }
 
         if (lastName != null) {
             if (firstName != null) {
                 query.AppendSql("AND");
-            } else {
-                query.AppendSql("WHERE");
             }
 
             query.AppendSql("lastName =").AppendParameter(lastName);
         }
-
-        query.AppendSql("ORDER BY id DESC");
-        return query;
     }
 }
