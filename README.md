@@ -48,6 +48,9 @@ docker run --rm -it -v "$(pwd):/app" -w /app -p 127.0.0.1:8080:8080 maven mvn sp
 ```
 
 Browse to <http://localhost:8080/?firstName=ada&lastName=lovelace>.
+Browse to <http://localhost:8080/filter/lastName=lovelace>.
+Browse to <http://localhost:8080/filter/lastName=lovelace%20OR%20firstName=bill>.
+Browse to <http://localhost:8080/filter/lastName=lovelace%20OR%20password=123456>.
 
 ## Dependencies For Query Code
 

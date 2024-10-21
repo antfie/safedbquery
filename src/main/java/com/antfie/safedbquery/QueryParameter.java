@@ -16,6 +16,11 @@ public class QueryParameter {
             return;
         }
 
+        if (value instanceof Integer) {
+            statement.setInt(parameterIndex, (Integer)value);
+            return;
+        }
+
         throw new SQLException("Unsupported type.");
     }
 }

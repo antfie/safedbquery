@@ -1,5 +1,7 @@
 package com.antfie.safedbquery;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import java.util.StringJoiner;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class QueryBuilder {
+    private Logger logger = LoggerFactory.getLogger(QueryBuilder.class);
     private StringJoiner query = new StringJoiner(" ");
     private List<QueryParameter> parameters = new ArrayList<QueryParameter>();
 
@@ -58,12 +61,15 @@ public class QueryBuilder {
             throw new SQLException("Unexpected number of parameters. Ensure all untrusted data is correclty paramatarised.");
         }
 
+        logger.info(query.toString());
+
         PreparedStatement statement = connection.prepareStatement(query.toString());
-        PopulateParamters(statement);
+        PopulateParameters(statement);
+
         return statement;
     }
 
-    private void PopulateParamters(PreparedStatement statement) throws SQLException {
+    private void PopulateParameters(PreparedStatement statement) throws SQLException {
         for (int index = 0; index < parameters.size(); index++) {
             parameters.get(index).addToStatement(index + 1, statement);
         }

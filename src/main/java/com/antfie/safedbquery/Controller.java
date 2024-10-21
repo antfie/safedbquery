@@ -4,8 +4,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.owasp.encoder.Encode;
-
 import javax.sql.DataSource;
 import java.util.Arrays;
 import java.sql.Connection;
@@ -28,7 +26,8 @@ public class Controller {
 
             QueryBuilder query = createQuery(firstName, lastName);
             ResultSet results = query.Prepare(connection).executeQuery();
-            return renderResults(results);
+            
+            return Utils.renderResults(results);
         } catch(SQLException exception) {
             // Nothing to do.
         } finally {
@@ -71,15 +70,5 @@ public class Controller {
 
         query.AppendSql("ORDER BY id DESC");
         return query;
-    }
-
-    private String renderResults(ResultSet results) throws SQLException {
-        StringBuilder output = new StringBuilder("<ol>");
-
-        while (results.next()) {
-            output.append("<li>" + Encode.forHtml(results.getString("firstName")) + "</li>");
-        }
-
-        return output.append("</ol>").toString();
     }
 }
