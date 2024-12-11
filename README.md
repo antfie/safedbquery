@@ -55,7 +55,7 @@ Then browse to:
 - <http://localhost:8080/filter/lastName=lovelace%20OR%20firstName=bill>.
 - <http://localhost:8080/filter/lastName=lovelace%20OR%20password=123456>.
 
-## Dependencies For Demo
+## Dependencies
 
 The following dependencies are in use:
 
