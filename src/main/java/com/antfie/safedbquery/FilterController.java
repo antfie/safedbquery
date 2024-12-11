@@ -4,22 +4,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.owasp.encoder.Encode;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.ResultSet;
 
 @RestController
 public class FilterController {
 
     @Autowired
-    private DataSource dataSource;
+    private DB db;
 
     private Logger logger = LoggerFactory.getLogger(FilterController.class);
 
@@ -40,33 +34,14 @@ public class FilterController {
 
     @RequestMapping("/filter/{filter}")
     public String index(@PathVariable("filter") String filter) {
-        Connection connection = null;
         logger.info(String.format("Incoming query: \"%s\"", Encode.forJava(filter)));
 
-        try {
-            connection = dataSource.getConnection();
-            TestData.populateDB(connection);
+        QueryBuilder query = new QueryBuilder("SELECT firstName FROM user WHERE");
+        parseFilter(query, filter);
+        query.AppendSql("ORDER BY id DESC");
 
-            QueryBuilder query = new QueryBuilder("SELECT firstName FROM user WHERE");
-            parseFilter(query, filter);
-            query.AppendSql("ORDER BY id DESC");
-
-            ResultSet results = query.Prepare(connection).executeQuery();
-
-            return Utils.renderResults(results);
-        } catch (SQLException exception) {
-            logger.error("SQLException", exception);
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException exception) {
-                logger.error("SQLException closing connection", exception);
-            }
-        }
-
-        return "Error";
+        ResultSet results = db.execute(query);
+        return Utils.renderResults(results);
     }
 
     private void parseFilter(QueryBuilder query, String filter) {

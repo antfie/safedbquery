@@ -61,7 +61,7 @@ public class QueryBuilder {
             throw new SQLException("Unexpected number of parameters. Ensure all untrusted data is correclty paramatarised.");
         }
 
-        logger.info(query.toString());
+        logger.debug(query.toString());
 
         PreparedStatement statement = connection.prepareStatement(query.toString());
         PopulateParameters(statement);
