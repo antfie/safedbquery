@@ -37,6 +37,8 @@ query.AppendSql("ORDER BY id DESC");
 ResultSet results = query.Prepare(connection).executeQuery();
 ```
 
+There is also an example of securely working with dynamic queries where the column name is specified, e.g. for sorting. You can see this in `FilterController.java` which uses `FilterBuilder.java`.
+
 ## Running
 
 It's good to use Docker to run this, though not required:

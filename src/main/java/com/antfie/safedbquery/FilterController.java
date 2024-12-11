@@ -29,6 +29,12 @@ public class FilterController {
             // ...
     };
 
+    private final FilterBuilder filterBuilder;
+
+    public FilterController() {
+        this.filterBuilder = new FilterBuilder(allowedColumnNames);
+    }
+
     private static String AndPredicate = " AND ";
     private static String OrPredicate = " OR ";
 
@@ -77,9 +83,9 @@ public class FilterController {
             String rightHandSide = predicateParts[1].trim();
             logger.info(String.format("left: %s, right: %s", Encode.forJava(leftHandSide), Encode.forJava(rightHandSide)));
 
-            ProcessTuple(query, leftHandSide);
+            filterBuilder.processTuple(query, leftHandSide);
             query.AppendSql(AndPredicate);
-            ProcessTuple(query, rightHandSide);
+            filterBuilder.processTuple(query, rightHandSide);
         } else if (filter.contains(OrPredicate)) {
             logger.info("Processing OR...");
 
@@ -93,31 +99,11 @@ public class FilterController {
             String rightHandSide = predicateParts[1].trim();
             logger.info(String.format("left: %s, right: %s", Encode.forJava(leftHandSide), Encode.forJava(rightHandSide)));
 
-            ProcessTuple(query, leftHandSide);
+            filterBuilder.processTuple(query, leftHandSide);
             query.AppendSql(OrPredicate);
-            ProcessTuple(query, rightHandSide);
+            filterBuilder.processTuple(query, rightHandSide);
         } else {
-            ProcessTuple(query, filter);
+            filterBuilder.processTuple(query, filter);
         }
-    }
-
-    private static void ProcessTuple(QueryBuilder query, String untrustedFilter) {
-        String[] untrustedParts = untrustedFilter.split("=");
-        String untrustedColumnName = untrustedParts[0].trim();
-        String untrustedValue = untrustedParts[1].trim();
-        String validatedColumnName = validateInputAgainstAllowList(allowedColumnNames, untrustedColumnName);
-
-        query.AppendSql("[" + validatedColumnName + "] =");
-        query.AppendParameter(untrustedValue);
-    }
-
-    private static String validateInputAgainstAllowList(String[] allowList, String input) {
-        for (String allowedOption : allowList) {
-            if (input.equals(allowedOption)) {
-                return allowedOption;
-            }
-        }
-
-        throw new IllegalArgumentException("Invalid option");
     }
 }
