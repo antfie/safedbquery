@@ -56,7 +56,7 @@ public class FilterController {
 
             String leftHandSide = predicateParts[0].trim();
             String rightHandSide = predicateParts[1].trim();
-            logger.info(String.format("left: %s, right: %s", Encode.forJava(leftHandSide), Encode.forJava(rightHandSide)));
+            logLeftAndRight(leftHandSide, rightHandSide);
 
             filterBuilder.processTuple(query, leftHandSide);
             query.AppendSql(AndPredicate);
@@ -72,7 +72,7 @@ public class FilterController {
 
             String leftHandSide = predicateParts[0].trim();
             String rightHandSide = predicateParts[1].trim();
-            logger.info(String.format("left: %s, right: %s", Encode.forJava(leftHandSide), Encode.forJava(rightHandSide)));
+            logLeftAndRight(leftHandSide, rightHandSide);
 
             filterBuilder.processTuple(query, leftHandSide);
             query.AppendSql(OrPredicate);
@@ -80,5 +80,9 @@ public class FilterController {
         } else {
             filterBuilder.processTuple(query, filter);
         }
+    }
+
+    private void logLeftAndRight(String leftHandSide, String rightHandSide) {
+        logger.info(String.format("left: %s, right: %s", Encode.forJava(leftHandSide), Encode.forJava(rightHandSide)));
     }
 }

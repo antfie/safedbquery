@@ -1,0 +1,54 @@
+{
+   "_links": {
+      "root": {
+         "href": "/",
+         "name": "",
+         "templated": false
+      },
+      "self": {
+         "href": "/scans/4373330b-a756-442e-a6aa-7709d82a5255/findings",
+         "name": "",
+         "templated": false
+      },
+      "help": {
+         "href": "https://docs.veracode.com/",
+         "name": "",
+         "templated": false
+      },
+      "create": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "start": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "details": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "upload": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "cancel": {
+         "href": "",
+         "name": "",
+         "templated": false
+      }
+   },
+   "scan_id": "4373330b-a756-442e-a6aa-7709d82a5255",
+   "scan_status": "SUCCESS",
+   "message": "Scan successful. Results size: 42 bytes",
+   "modules": [
+      "safedbquery-0.0.1-SNAPSHOT.jar"
+   ],
+   "modules_count": 1,
+   "selected_modules": [
+      "safedbquery-0.0.1-SNAPSHOT.jar"
+   ]
+}

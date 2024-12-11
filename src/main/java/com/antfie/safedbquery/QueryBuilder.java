@@ -1,5 +1,6 @@
 package com.antfie.safedbquery;
 
+import org.owasp.encoder.Encode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
@@ -61,7 +62,7 @@ public class QueryBuilder {
             throw new SQLException("Unexpected number of parameters. Ensure all untrusted data is correclty paramatarised.");
         }
 
-        logger.debug(query.toString());
+        logger.debug(Encode.forJava(query.toString()));
 
         PreparedStatement statement = connection.prepareStatement(query.toString());
         PopulateParameters(statement);

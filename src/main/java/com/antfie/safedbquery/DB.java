@@ -17,17 +17,13 @@ public class DB {
     private DataSource dataSource;
 
     private Logger logger = LoggerFactory.getLogger(DB.class);
-
-    private Boolean initialised = false;
     private Connection connection = null;
 
-    @RequestMapping("/")
     public ResultSet execute(QueryBuilder query) {
         try {
-            if (!initialised) {
+            if (this.connection == null) {
                 this.connection = dataSource.getConnection();
                 TestData.populateDB(connection);
-                initialised = true;
             }
 
             return query.Prepare(connection).executeQuery();

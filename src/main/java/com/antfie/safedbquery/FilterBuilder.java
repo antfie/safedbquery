@@ -20,7 +20,7 @@ public class FilterBuilder {
 
     private String validateInputAgainstAllowList(String input) {
         for (String allowedOption : this.allowedColumnNames) {
-            if (input.equals(allowedOption)) {
+            if (input.equalsIgnoreCase(allowedOption)) {
                 return allowedOption;
             }
         }
