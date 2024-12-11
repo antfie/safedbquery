@@ -39,7 +39,7 @@ public class Controller {
                 query.AppendSql("AND");
             }
 
-            query.AppendSql("lastName =").AppendParameter(lastName);
+            query.AppendSql("LOWER(lastName) = LOWER(").AppendParameter(lastName).AppendSql(")");
         }
     }
 }
